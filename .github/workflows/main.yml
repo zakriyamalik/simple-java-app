@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-run:
-    runs-on: ubuntu-latest  # Set the environment to Ubuntu
+    runs-on: ubuntu-latest
 
     steps:
       # Step 1: Checkout code
@@ -22,16 +22,28 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: '11'
-          distribution: 'temurin'  # Use Temurin JDK 11
+          distribution: 'temurin'
 
-      # Step 3: Compile Java files
-      - name: Compile Java application
+      # Step 3: Compile application source files
+      - name: Compile application source files
         run: |
-          # Compile Java files (including HelloWorld)
-          javac -d out src/*.java
+          # Compile all Java source files
+          javac -d out $(find src/main/java -name "*.java")
 
-      # Step 4: Run HelloWorld application
+      # Step 4: Compile test files
+      - name: Compile test files
+        run: |
+          # Compile test files with classpath set to the compiled source files
+          javac -cp out -d out $(find src/test/java -name "*.java")
+
+      # Step 5: Run the HelloWorld application
       - name: Run HelloWorld application
         run: |
-          # Run the HelloWorld class (or any other class with a main method)
-          java -cp out HelloWorld
+          # Run the HelloWorld class
+          java -cp out com.mycompany.app.HelloWorld
+
+      # Step 6: Run tests
+      - name: Run HelloWorldTest
+        run: |
+          # Run the HelloWorldTest class
+          java -cp out com.mycompany.app.HelloWorldTest
