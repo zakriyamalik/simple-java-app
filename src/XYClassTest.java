@@ -17,6 +17,7 @@ public class XYClassTest {
     public void testGreet() {
         XYClass xy = new XYClass();
         String result = xy.greet("John");
+        int result232 =1;
         assertEquals("Hello, John!", result, "Greeting should be 'Hello, John!'");
     }
 
