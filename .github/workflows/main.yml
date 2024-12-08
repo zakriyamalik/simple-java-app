@@ -9,23 +9,35 @@ on:
       - main
 
 jobs:
-  build-and-run:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
+    # Step 1: Checkout code
     - name: Checkout code
       uses: actions/checkout@v3
 
+    # Step 2: Set up JDK 11
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
         java-version: '11'
-        distribution: 'temurin' # Specify the distribution
+        distribution: 'temurin'  # Use Temurin JDK
 
-    - name: Compile Java application
+    # Step 3: Compile Java application and tests
+    - name: Compile Java application and tests
       run: |
-        javac src/HelloWorld.java
+        # Compile all Java files (application and tests) in src directory
+        javac -d out src/*.java
 
-    - name: Run Java application
+    # Step 4: Run HelloWorld application
+    - name: Run HelloWorld application
       run: |
-        java -cp src HelloWorld
+        # Run the HelloWorld class
+        java -cp out HelloWorld
+
+    # Step 5: Run tests with JUnit 5
+    - name: Run tests using JUnit 5
+      run: |
+        # Run JUnit tests (ensure JUnit jars are in libs folder)
+        java -cp out:libs/junit-5.7.0.jar:libs/junit-platform-console-standalone-1.7.0.jar org.junit.platform.console.ConsoleLauncher --scan-classpath
