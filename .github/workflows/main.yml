@@ -37,7 +37,7 @@ jobs:
           java -cp out HelloWorld
 
       # Step 5: Run tests using JUnit 5
-      - name: Run tests using JUnit 5
+      - name: Run tests
         run: |
           # Run tests (this runs all test classes)
           
