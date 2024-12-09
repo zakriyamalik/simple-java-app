@@ -1,13 +1,10 @@
-import static org.junit.jupiter.api.Assertions.*;
-import org.junit.jupiter.api.Test;
-
-public class HelloWorldTest {
+public class HelloWorldt {
 
 //    @Test
 //    void testHelloWorld() {
 //        assertEquals(5, 2 + 3, "Basic math test");
 //    }
-    HelloWorldTest()
+    HelloWorldt()
     {
         System.out.println("Hello Tests\n");
     }
